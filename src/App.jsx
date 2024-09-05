@@ -8,8 +8,14 @@ function App() {
   const randomChar = (length) => {
     return Math.floor(Math.random() * length);
   };
+  const randomNum = () => {
+    return Math.floor(Math.random() * 256);
+  };
 
   const handleRandomHexColor = () => {
+    setColorType('HEX');
+
+    setColor('#70d179');
     let hex = '#';
     const hexChars = [0, 1, 2, 3, 4, 5, 6, 'A', 'B', 'C', 'D', 'E', 'F'];
     for (let i = 0; i < 6; i++) {
@@ -17,11 +23,22 @@ function App() {
     }
     setColor(hex);
   };
-  const handleRandomRgbColor = () => {};
+  const handleRandomRgbColor = () => {
+    setColorType('RGB');
+    setColor('rgb(113, 209, 120)');
+    const r = randomNum();
+    const g = randomNum();
+    const b = randomNum();
+    let rgb = `rgb(${r},${g},${b})`;
+    setColor(rgb);
+  };
 
   const handleRandomColor = () => {
     colorType === 'HEX' ? handleRandomHexColor() : handleRandomRgbColor();
   };
+  /* useEffect(() => {
+    handleRandomColor();
+  }, [colorType]); */
 
   return (
     <div
@@ -31,16 +48,10 @@ function App() {
       className="app"
     >
       <div className="button-container">
+        <button onClick={handleRandomHexColor}>Create Hex Color</button>
         <button
           onClick={() => {
-            setColorType('HEX');
-          }}
-        >
-          Create Hex Color
-        </button>
-        <button
-          onClick={() => {
-            setColorType('RGB');
+            handleRandomRgbColor();
           }}
         >
           Create RGB Color
